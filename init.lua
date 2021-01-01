@@ -32,7 +32,15 @@ function tinfo.get_block_info(pos) -- Process block info
 	for k,v in pairs(groups_t) do
 		groups = groups.."\n    "..tostring(k)..": "..tostring(v)
 	end
-	return true, "--------\nNode Info:\nName: "..node.name.."\nPOS: "..minetest.pos_to_string(pos).."\nDescription: "..name.."\nparam2: "..tostring(node.param2).."\nGroups: "..groups.."\n--------"
+	return true, "--------\n"..
+	"Node Info:\n"..
+	"Name: "..node.name.."\n"..
+	"POS: "..minetest.pos_to_string(pos).."\n"..
+	"Description: "..name.."\n"..
+	"param2: "..tostring(node.param2).."\n"..
+	"Groups: "..groups.."\n"..
+	"Craftable: "..(minetest.get_all_craft_recipes(node.name) and "true" or "false").."\n"..
+	"--------"
 end
 
 function tinfo.get_object_info(ref) -- Process object Info
@@ -57,7 +65,14 @@ function tinfo.get_object_info(ref) -- Process object Info
 		local breath = tostring(ref:get_breath())
 		add_info = add_info.."Player Info:\n    Breath: "..breath.."\n"
 	end
-	return true, "--------\nObject Info:\n"..player_info.."\nHP: "..hp.."\nyaw: "..yaw.."\narmor groups: "..agroups.."\nWielded item: "..wielded..add_info.."--------"
+	return true, "--------\n"..
+	"Object Info:\n"..
+	player_info.."\n"..
+	"HP: "..hp.."\n"..
+	"yaw: "..yaw.."\n"..
+	"armor groups: "..agroups.."\n"..
+	"Wielded item: "..wielded..add_info..
+	"--------"
 end
 
 local function tool_handle(itemstack, placer, pointed_thing)
